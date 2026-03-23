@@ -1,0 +1,357 @@
+:root {
+  --bg-soft: #fffaf2;
+  --paper: #ffffff;
+  --ink: #1f2a37;
+  --ink-light: #4b5563;
+  --teal: #0d9488;
+  --teal-deep: #0f766e;
+  --orange: #f59e0b;
+  --coral: #f97316;
+  --line: #d7e5e4;
+  --shadow: 0 14px 34px rgba(13, 116, 111, 0.12);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Noto Sans TC", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 5%, rgba(245, 158, 11, 0.22), transparent 34%),
+    radial-gradient(circle at 88% 12%, rgba(13, 148, 136, 0.18), transparent 38%),
+    linear-gradient(175deg, #fffef8 0%, var(--bg-soft) 100%);
+  line-height: 1.65;
+  padding: 2rem 1rem 3.5rem;
+}
+
+.hero {
+  max-width: 1100px;
+  margin: 0 auto 1.2rem;
+  background: linear-gradient(135deg, #fff 0%, #fef4e7 48%, #ecfdf5 100%);
+  border: 1px solid #efd8b7;
+  border-radius: 24px;
+  padding: 1.4rem 1.5rem 1.7rem;
+  box-shadow: var(--shadow);
+  animation: riseIn 560ms ease;
+}
+
+.hero__badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  background: #d1fae5;
+  color: #0f766e;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "M PLUS Rounded 1c", "Noto Sans TC", sans-serif;
+  margin: 0 0 0.5rem;
+}
+
+h1 {
+  margin-top: 0.55rem;
+  font-size: clamp(1.95rem, 3.7vw, 3rem);
+  line-height: 1.22;
+}
+
+.hero p {
+  margin: 0;
+  color: var(--ink-light);
+  font-size: 1.03rem;
+}
+
+.layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 1.2rem;
+  box-shadow: 0 8px 20px rgba(29, 78, 216, 0.06);
+}
+
+.lead {
+  margin: 0.4rem 0 1rem;
+  font-size: 1.05rem;
+}
+
+.move-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.move-grid article {
+  border: 1px solid #c8e6e3;
+  border-radius: 14px;
+  padding: 0.75rem 0.8rem;
+  background: linear-gradient(145deg, #ffffff, #f0fdfa);
+}
+
+.move-grid h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.25rem;
+}
+
+.move-grid p {
+  margin: 0;
+  color: var(--ink-light);
+}
+
+.steps {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.steps li {
+  margin-bottom: 0.6rem;
+}
+
+.safety {
+  margin-top: 0.9rem;
+  border-left: 4px solid var(--orange);
+  background: #fffbeb;
+  border-radius: 0 12px 12px 0;
+  padding: 0.65rem 0.8rem;
+}
+
+.trainer {
+  grid-column: span 2;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #f6fffd 100%),
+    repeating-linear-gradient(45deg, rgba(17, 94, 89, 0.04), rgba(17, 94, 89, 0.04) 8px, transparent 8px, transparent 16px);
+}
+
+.trainer__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.trainer__head label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+}
+
+select {
+  border: 1px solid #93c5c0;
+  background: #ffffff;
+  color: var(--ink);
+  border-radius: 10px;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.95rem;
+}
+
+.prompt-box {
+  text-align: center;
+  border: 2px solid #b7e1dd;
+  border-radius: 20px;
+  padding: 1.25rem 1rem;
+  background: #ffffff;
+}
+
+.prompt-box__label {
+  font-size: 0.88rem;
+  letter-spacing: 0.1em;
+  color: #0f766e;
+  font-weight: 700;
+  margin: 0;
+}
+
+.prompt-box__text {
+  margin: 0.4rem 0 0.2rem;
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  color: #0f5f59;
+}
+
+.prompt-box__hint {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--ink-light);
+  min-height: 1.6rem;
+}
+
+.is-flash {
+  animation: pulse 420ms ease;
+}
+
+.trainer__controls {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #fff;
+}
+
+#startBtn {
+  background: linear-gradient(145deg, var(--teal), var(--teal-deep));
+}
+
+#pauseBtn {
+  background: linear-gradient(145deg, #fb923c, var(--coral));
+}
+
+#nextBtn {
+  background: linear-gradient(145deg, #0ea5e9, #0284c7);
+}
+
+button:hover {
+  transform: translateY(-1px);
+  filter: saturate(1.1);
+}
+
+.countdown {
+  margin-top: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #e8fffb;
+  border: 1px solid #b0e8df;
+  color: #0f766e;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-weight: 700;
+}
+
+.countdown strong {
+  font-size: 1.15rem;
+  min-width: 1.2rem;
+  text-align: center;
+}
+
+.rules {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.rules li {
+  margin-bottom: 0.45rem;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 1.4rem;
+  color: #4b5563;
+  font-size: 0.92rem;
+}
+
+.reveal {
+  animation: riseIn 620ms ease both;
+}
+
+.reveal:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.reveal:nth-child(3) {
+  animation-delay: 140ms;
+}
+
+.reveal:nth-child(4) {
+  animation-delay: 220ms;
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.995);
+    box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.35);
+  }
+  to {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(13, 148, 136, 0);
+  }
+}
+
+@media (max-width: 940px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .trainer {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 580px) {
+  body {
+    padding: 1rem 0.72rem 2.2rem;
+  }
+
+  .hero,
+  .card {
+    border-radius: 16px;
+    padding: 1rem;
+  }
+
+  .move-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trainer__head label {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  select {
+    max-width: 70%;
+  }
+
+  .trainer__controls {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  button {
+    padding: 0.6rem 0.4rem;
+    font-size: 0.95rem;
+  }
+}
