@@ -2,7 +2,7 @@ import TrainerPanel from "./components/trainer-panel";
 
 const leadingSteps = [
   "暖身 2 分鐘：坐姿深呼吸，提醒「動作小、節奏穩」。",
-  "教口訣 3 分鐘：帶唸「早餐畫太陽、晚飯抱抱胸」。",
+  "教口訣 3 分鐘：帶唸「早餐畫太陽、中餐摸摸天、晚飯抱抱胸、睡前合十手」。",
   "注意力練習 4 分鐘：使用下方訓練器隨機出題，聽口令反應。",
   "雙人互動 2 分鐘：長者兩兩輪流喊口令、做動作。",
   "收尾 1 分鐘：重複口訣一次，確認今日服藥時點。"
@@ -10,11 +10,13 @@ const leadingSteps = [
 
 const moves = [
   { title: "早餐後", detail: "雙手劃一個大圓（代表太陽）" },
-  { title: "晚飯後", detail: "雙手抱胸" }
+  { title: "中餐後", detail: "雙手上舉摸天" },
+  { title: "晚飯後", detail: "雙手抱胸" },
+  { title: "睡前", detail: "雙手合十" }
 ];
 
 const ruleGuide = [
-  "早餐後 / 晚飯後：做對應動作。",
+  "早餐後 / 中餐後 / 晚飯後 / 睡前：做對應動作。",
   "藥到：先拍手一次，再做上一個服藥時段動作。",
   "喝水 / 聊天 / 看窗外：停住不動、眼睛看帶領者 2 秒。"
 ];
@@ -30,9 +32,9 @@ export default function HomePage() {
 
       <main className="layout">
         <section className="card reveal">
-          <h2>活動 01｜藥時雙拍注意力體操</h2>
+          <h2>活動 01｜藥時四拍注意力體操</h2>
           <p className="lead">
-            核心口訣：<strong>早餐畫太陽、晚飯抱抱胸。</strong>
+            核心口訣：<strong>早餐畫太陽、中餐摸摸天、晚飯抱抱胸、睡前合十手。</strong>
             <br />
             注意力規則：<strong>聽到「藥到」拍一下，聽到雜詞先停手。</strong>
           </p>

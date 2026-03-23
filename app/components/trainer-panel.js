@@ -4,7 +4,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const basePrompts = [
   { word: "早餐後", hint: "做法：雙手劃一個大圓（代表太陽）", group: "med" },
-  { word: "晚飯後", hint: "做法：雙手抱胸", group: "med" }
+  { word: "中餐後", hint: "做法：雙手上舉摸天", group: "med" },
+  { word: "晚飯後", hint: "做法：雙手抱胸", group: "med" },
+  { word: "睡前", hint: "做法：雙手合十", group: "med" }
 ];
 
 const medicineCall = { word: "藥到", hint: "先拍手一次，再做上一個服藥動作", group: "alert" };
@@ -230,7 +232,7 @@ export default function TrainerPanel() {
         <label>
           難度
           <select value={difficulty} onChange={handleDifficultyChange}>
-            <option value="easy">基礎（只有兩個服藥時段）</option>
+            <option value="easy">基礎（只有四個服藥時段）</option>
             <option value="normal">一般（加入藥到口令）</option>
             <option value="challenge">挑戰（加入干擾詞）</option>
           </select>
