@@ -235,6 +235,11 @@ button {
   background: linear-gradient(145deg, #0ea5e9, #0284c7);
 }
 
+#metronomeBtn {
+  background: linear-gradient(145deg, #16a34a, #15803d);
+  white-space: nowrap;
+}
+
 button:hover {
   transform: translateY(-1px);
   filter: saturate(1.1);
@@ -257,6 +262,50 @@ button:hover {
   font-size: 1.15rem;
   min-width: 1.2rem;
   text-align: center;
+}
+
+.metronome {
+  margin-top: 1rem;
+  border: 1px solid #b7e1dd;
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 0.9rem 1rem;
+}
+
+.metronome__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.metronome__row h3 {
+  margin: 0;
+}
+
+.metronome__bpm {
+  margin-top: 0.7rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+}
+
+.metronome__bpm input[type="range"] {
+  width: 100%;
+  accent-color: #0f766e;
+}
+
+.metronome__bpm strong {
+  min-width: 2.2rem;
+  text-align: right;
+  color: #0f766e;
+}
+
+.metronome__hint {
+  margin: 0.5rem 0 0;
+  color: var(--ink-light);
 }
 
 .rules {
@@ -350,6 +399,20 @@ button:hover {
   .trainer__controls {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .metronome__row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .metronome__bpm {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+
+  .metronome__bpm strong {
+    text-align: left;
   }
 
   button {

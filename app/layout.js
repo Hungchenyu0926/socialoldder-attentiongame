@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "銀心藥時站 | 長者注意力帶動活動",
-  description: "台灣社區關懷據點指導員可直接使用的服藥記憶與注意力訓練活動網站。"
+  title: "山海共生工作坊 | 長者活動網頁",
+  description: "社區關懷據點可直接使用的長者活動網頁。"
 };
 
 export default function RootLayout({ children }) {
