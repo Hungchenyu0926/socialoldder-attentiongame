@@ -1,4 +1,6 @@
 :root {
+  --font-body: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --font-heading: "M PLUS Rounded 1c", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
   --bg-soft: #fffaf2;
   --paper: #ffffff;
   --ink: #1f2a37;
@@ -25,7 +27,7 @@ body {
 
 body {
   min-height: 100vh;
-  font-family: "Noto Sans TC", sans-serif;
+  font-family: var(--font-body), sans-serif;
   color: var(--ink);
   background:
     radial-gradient(circle at 12% 5%, rgba(245, 158, 11, 0.22), transparent 34%),
@@ -60,7 +62,7 @@ body {
 h1,
 h2,
 h3 {
-  font-family: "M PLUS Rounded 1c", "Noto Sans TC", sans-serif;
+  font-family: var(--font-heading), sans-serif;
   margin: 0 0 0.5rem;
 }
 
