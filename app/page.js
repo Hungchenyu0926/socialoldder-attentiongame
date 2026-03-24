@@ -16,8 +16,16 @@ const moves = [
   { title: "喝水", detail: "手部當作杯子，做喝水動作" }
 ];
 
+const activityTwoMoves = [
+  { title: "頭暈", detail: "動作：摸頭" },
+  { title: "胃不舒服", detail: "動作：摸肚子" },
+  { title: "皮膚癢紅疹", detail: "動作：摸手臂" },
+  { title: "胸痛/喘", detail: "動作：抱胸" }
+];
+
 const ruleGuide = [
   "早餐後 / 中餐後 / 晚飯後 / 睡前 / 喝水：做對應動作。",
+  "頭暈 / 胃不舒服 / 皮膚癢紅疹 / 胸痛/喘：分別做摸頭 / 摸肚子 / 摸手臂 / 抱胸。",
   "藥到：先拍手一次，再做上一個服藥時段動作。",
   "聊天 / 看窗外：停住不動、眼睛看帶領者 2 秒。"
 ];
@@ -41,6 +49,23 @@ export default function HomePage() {
           </p>
           <div className="move-grid">
             {moves.map((move) => (
+              <article key={move.title}>
+                <h3>{move.title}</h3>
+                <p>{move.detail}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="card reveal">
+          <h2>活動 02｜症狀反應動作</h2>
+          <p className="lead">
+            核心口訣：<strong>聽到症狀詞，馬上做對應動作。</strong>
+            <br />
+            帶領提醒：先慢速示範 1 回合，再進入隨機口令節奏。
+          </p>
+          <div className="move-grid">
+            {activityTwoMoves.map((move) => (
               <article key={move.title}>
                 <h3>{move.title}</h3>
                 <p>{move.detail}</p>

@@ -1,47 +1,75 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-const basePrompts = [
-  { word: "早餐後", hint: "做法：雙手劃一個大圓（代表太陽）", group: "med" },
-  { word: "中餐後", hint: "做法：雙手上舉摸天", group: "med" },
-  { word: "晚飯後", hint: "做法：雙手抱胸", group: "med" },
-  { word: "睡前", hint: "做法：雙手合十", group: "med" },
-  { word: "喝水", hint: "做法：手部當作杯子，做喝水動作", group: "med" }
-];
-
-const medicineCall = { word: "藥到", hint: "先拍手一次，再做上一個服藥動作", group: "alert" };
-
-const distractors = [
-  { word: "聊天", hint: "停住不動，眼睛看帶領者 2 秒", group: "distractor" },
-  { word: "看窗外", hint: "停住不動，眼睛看帶領者 2 秒", group: "distractor" }
-];
-
-const roundConfig = {
-  easy: [...basePrompts],
-  normal: [...basePrompts, medicineCall],
-  challenge: [...basePrompts, medicineCall, ...distractors]
+const activityConfigs = {
+  activity1: {
+    label: "活動 1｜藥時五拍",
+    basePrompts: [
+      { word: "早餐後", hint: "做法：雙手劃一個大圓（代表太陽）", group: "med" },
+      { word: "中餐後", hint: "做法：雙手上舉摸天", group: "med" },
+      { word: "晚飯後", hint: "做法：雙手抱胸", group: "med" },
+      { word: "睡前", hint: "做法：雙手合十", group: "med" },
+      { word: "喝水", hint: "做法：手部當作杯子，做喝水動作", group: "med" }
+    ],
+    alertPrompt: { word: "藥到", hint: "先拍手一次，再做上一個服藥動作", group: "alert" },
+    distractors: [
+      { word: "聊天", hint: "停住不動，眼睛看帶領者 2 秒", group: "distractor" },
+      { word: "看窗外", hint: "停住不動，眼睛看帶領者 2 秒", group: "distractor" }
+    ],
+    defaultPrompt: {
+      word: "按下開始帶動",
+      hint: "系統會每 4 秒換一題"
+    }
+  },
+  activity2: {
+    label: "活動 2｜症狀反應",
+    basePrompts: [
+      { word: "頭暈", hint: "做法：摸頭", group: "med" },
+      { word: "胃不舒服", hint: "做法：摸肚子", group: "med" },
+      { word: "皮膚癢紅疹", hint: "做法：摸手臂", group: "med" },
+      { word: "胸痛/喘", hint: "做法：抱胸", group: "med" }
+    ],
+    alertPrompt: { word: "重複", hint: "先拍手一次，再做上一個症狀動作", group: "alert" },
+    distractors: [
+      { word: "聊天", hint: "停住不動，眼睛看帶領者 2 秒", group: "distractor" },
+      { word: "看窗外", hint: "停住不動，眼睛看帶領者 2 秒", group: "distractor" }
+    ],
+    defaultPrompt: {
+      word: "按下開始帶動",
+      hint: "活動 2 每 4 秒換一題"
+    }
+  }
 };
 
-const defaultPrompt = {
-  word: "按下開始帶動",
-  hint: "系統會每 4 秒換一題"
+const buildRoundConfig = (activityKey) => {
+  const activity = activityConfigs[activityKey] ?? activityConfigs.activity1;
+
+  return {
+    easy: [...activity.basePrompts],
+    normal: [...activity.basePrompts, activity.alertPrompt],
+    challenge: [...activity.basePrompts, activity.alertPrompt, ...activity.distractors]
+  };
 };
 
 export default function TrainerPanel() {
+  const [activityKey, setActivityKey] = useState("activity1");
   const [difficulty, setDifficulty] = useState("normal");
-  const [currentPrompt, setCurrentPrompt] = useState(defaultPrompt);
   const [remaining, setRemaining] = useState(4);
   const [isRunning, setIsRunning] = useState(false);
   const [bpm, setBpm] = useState(72);
   const [isMetronomeOn, setIsMetronomeOn] = useState(false);
+
+  const activeConfig = activityConfigs[activityKey] ?? activityConfigs.activity1;
+  const [currentPrompt, setCurrentPrompt] = useState(activeConfig.defaultPrompt);
+  const roundConfig = useMemo(() => buildRoundConfig(activityKey), [activityKey]);
 
   const promptBoxRef = useRef(null);
   const tickIdRef = useRef(null);
   const metronomeIdRef = useRef(null);
   const audioContextRef = useRef(null);
   const beatCountRef = useRef(0);
-  const lastMedPromptRef = useRef(basePrompts[0]);
+  const lastMedPromptRef = useRef(activeConfig.basePrompts[0]);
 
   const flashPrompt = useCallback(() => {
     if (!promptBoxRef.current) {
@@ -69,7 +97,7 @@ export default function TrainerPanel() {
     }
 
     return randomPrompt;
-  }, [difficulty]);
+  }, [difficulty, roundConfig]);
 
   const showPrompt = useCallback(() => {
     setCurrentPrompt(choosePrompt());
@@ -174,6 +202,13 @@ export default function TrainerPanel() {
     };
   }, [bpm, isMetronomeOn, playBeat]);
 
+  useEffect(() => {
+    setIsRunning(false);
+    setRemaining(4);
+    lastMedPromptRef.current = activeConfig.basePrompts[0];
+    setCurrentPrompt(activeConfig.defaultPrompt);
+  }, [activeConfig]);
+
   const startTrainer = () => {
     if (isRunning) {
       return;
@@ -210,11 +245,16 @@ export default function TrainerPanel() {
     setDifficulty(event.target.value);
     setIsRunning(false);
     setRemaining(4);
-    lastMedPromptRef.current = basePrompts[0];
+    lastMedPromptRef.current = activeConfig.basePrompts[0];
     setCurrentPrompt({
       word: "已切換難度",
       hint: "按下開始重新帶動"
     });
+  };
+
+  const handleActivityChange = (event) => {
+    setActivityKey(event.target.value);
+    setDifficulty("normal");
   };
 
   const handleMetronomeToggle = () => {
@@ -230,17 +270,24 @@ export default function TrainerPanel() {
       <div className="trainer__head">
         <h2>帶領模式｜隨機口令訓練器</h2>
         <label>
+          活動
+          <select value={activityKey} onChange={handleActivityChange}>
+            <option value="activity1">活動 1｜藥時五拍</option>
+            <option value="activity2">活動 2｜症狀反應</option>
+          </select>
+        </label>
+        <label>
           難度
           <select value={difficulty} onChange={handleDifficultyChange}>
-            <option value="easy">基礎（五個帶領動作）</option>
-            <option value="normal">一般（加入藥到口令）</option>
+            <option value="easy">基礎（僅對應動作）</option>
+            <option value="normal">一般（加入重複口令）</option>
             <option value="challenge">挑戰（加入干擾詞）</option>
           </select>
         </label>
       </div>
 
       <div className="prompt-box" ref={promptBoxRef}>
-        <p className="prompt-box__label">目前口令</p>
+        <p className="prompt-box__label">目前口令（{activeConfig.label}）</p>
         <p className="prompt-box__text">{currentPrompt.word}</p>
         <p className="prompt-box__hint">{currentPrompt.hint}</p>
       </div>
